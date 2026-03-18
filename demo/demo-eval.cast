@@ -1,4 +1,4 @@
-{"version":3,"term":{"cols":100,"rows":35,"type":"tmux-256color","version":"tmux 3.6a"},"timestamp":1773792338,"env":{"SHELL":"/bin/zsh"}}
+{"version": 3, "term": {"cols": 100, "rows": 35, "type": "tmux-256color", "version": "tmux 3.6a", "theme": {"fg": "#e6e6e6", "bg": "#0d1117", "palette": "#282c34:#e06c75:#98c379:#e5c07b:#61afef:#c678dd:#56b6c2:#abb2bf:#5c6370:#e06c75:#98c379:#e5c07b:#61afef:#c678dd:#56b6c2:#ffffff"}}, "timestamp": 1773792338, "env": {"SHELL": "/bin/zsh"}}
 [0.481, "o", "\u001b[1m\u001b[7m%\u001b[27m\u001b[1m\u001b[0m                                                                                                   \r \r"]
 [0.001, "o", "\u001bk..o/tiles/pidge\u001b\\"]
 [0.002, "o", "\u001b]7;file://JBs-Personal-2024.local/Users/jbaruch/Library/CloudStorage/GoogleDrive-jbaruch@sadogursky.com/My%20Drive/Presentations/QCon/London%202026/The%20Right%20300%20Tokens%20Beat%20100k%20Noisy%20Ones%20/demo/tiles/pidge\u001b\\"]
