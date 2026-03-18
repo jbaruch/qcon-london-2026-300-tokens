@@ -1,0 +1,17 @@
+{
+  "name": "jbaruch/pidge",
+  "version": "0.1.0",
+  "summary": "Context tile for pidge notification library v3 - async API with NotificationClient, Message, and dispatch pattern",
+  "describes": "pkg:pypi/pidge@3.0.0",
+  "docs": "docs/index.md",
+  "rules": {
+    "pidge-v3": {
+      "rules": "rules/pidge-v3.md"
+    }
+  },
+  "skills": {
+    "pidge-integration": {
+      "path": "skills/pidge-integration/SKILL.md"
+    }
+  }
+}

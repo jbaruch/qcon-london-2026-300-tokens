@@ -1,0 +1,61 @@
+{
+  "context": "Tests whether the agent correctly migrates pidge v2 code to v3, replacing deprecated classes and methods with the correct v3 equivalents, using the async context manager pattern, and following all v3 integration practices.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "No Notifier class",
+      "max_score": 10,
+      "description": "Does NOT import or use the `Notifier` class anywhere in the migrated code"
+    },
+    {
+      "name": "No NotifierConfig class",
+      "max_score": 8,
+      "description": "Does NOT import or use `NotifierConfig` anywhere in the migrated code"
+    },
+    {
+      "name": "No .send() method",
+      "max_score": 10,
+      "description": "Does NOT call `.send()` on any client/notifier object — uses `.dispatch()` instead"
+    },
+    {
+      "name": "Uses NotificationClient",
+      "max_score": 8,
+      "description": "Imports and uses `NotificationClient` from pidge as the client class"
+    },
+    {
+      "name": "Uses NotificationConfig",
+      "max_score": 8,
+      "description": "Imports and uses `NotificationConfig` (not `NotifierConfig`) to configure the client"
+    },
+    {
+      "name": "Async context manager",
+      "max_score": 10,
+      "description": "Uses `async with NotificationClient(config=config) as client:` pattern"
+    },
+    {
+      "name": "API key from env",
+      "max_score": 8,
+      "description": "API key is sourced from an environment variable, not hardcoded"
+    },
+    {
+      "name": "Message keyword args",
+      "max_score": 8,
+      "description": "Message is constructed using `Message(to=..., subject=..., body=...)` with named keyword arguments"
+    },
+    {
+      "name": "Delivery result check",
+      "max_score": 8,
+      "description": "Checks `result.success` or `result.status == Status.SENT` after dispatch"
+    },
+    {
+      "name": "DispatchError handling",
+      "max_score": 10,
+      "description": "Catches `DispatchError` explicitly in a try/except block"
+    },
+    {
+      "name": "notification_sent field",
+      "max_score": 12,
+      "description": "Returns or exposes a `notification_sent` True/False value reflecting dispatch outcome"
+    }
+  ]
+}

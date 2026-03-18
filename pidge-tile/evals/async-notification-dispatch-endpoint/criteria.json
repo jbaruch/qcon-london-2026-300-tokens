@@ -1,0 +1,56 @@
+{
+  "context": "Tests whether the agent correctly integrates the pidge v3 library into an async FastAPI endpoint, including correct client lifecycle management, configuration from environment variables, message construction, delivery confirmation, error handling, and response structure.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Async context manager",
+      "max_score": 12,
+      "description": "Uses `async with NotificationClient(...) as client:` pattern — client is not stored as a long-lived instance variable or used outside the context manager"
+    },
+    {
+      "name": "NotificationConfig from env",
+      "max_score": 10,
+      "description": "API key is read from an environment variable (e.g. os.environ or os.getenv), NOT hardcoded as a string literal in NotificationConfig"
+    },
+    {
+      "name": "Message keyword arguments",
+      "max_score": 8,
+      "description": "Message is constructed using named keyword arguments (to=, subject=, body=), not positional arguments"
+    },
+    {
+      "name": "Uses dispatch not send",
+      "max_score": 10,
+      "description": "Calls `client.dispatch(msg)` (awaited) — does NOT call `.send()` or any v2 method"
+    },
+    {
+      "name": "Delivery confirmation check",
+      "max_score": 10,
+      "description": "Checks either `result.success` or `result.status == Status.SENT` after dispatch to determine if the notification succeeded"
+    },
+    {
+      "name": "Logs message_id",
+      "max_score": 8,
+      "description": "Logs `result.message_id` after a successful dispatch (e.g. logger.info with message_id)"
+    },
+    {
+      "name": "DispatchError caught explicitly",
+      "max_score": 12,
+      "description": "Imports and catches `DispatchError` from pidge in a try/except block around the dispatch call"
+    },
+    {
+      "name": "No 500 on DispatchError",
+      "max_score": 10,
+      "description": "When DispatchError is caught, the endpoint returns a graceful response (not raises or re-raises the error resulting in a 500)"
+    },
+    {
+      "name": "notification_sent in response",
+      "max_score": 10,
+      "description": "The endpoint response includes a `notification_sent` field set to True or False"
+    },
+    {
+      "name": "No v2 API usage",
+      "max_score": 10,
+      "description": "Does NOT import or use `Notifier`, `NotifierConfig`, or `.send()` anywhere in the code"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "context": "Tests whether the agent implements correct retry logic for transient pidge dispatch failures, including exponential backoff, distinguishing permanent vs transient errors, short client lifecycle, and proper result checking.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Retry up to 3 attempts",
+      "max_score": 12,
+      "description": "Retry loop runs for at most 3 attempts (e.g. `for attempt in range(3)`) — not fewer, not more"
+    },
+    {
+      "name": "Exponential backoff sleep",
+      "max_score": 12,
+      "description": "Uses exponential backoff between retries — sleep duration follows a 2^attempt (or equivalent) pattern, not a fixed interval"
+    },
+    {
+      "name": "asyncio.sleep for backoff",
+      "max_score": 8,
+      "description": "Uses `await asyncio.sleep(...)` (not `time.sleep(...)`) for the backoff delay"
+    },
+    {
+      "name": "No retry on permanent errors",
+      "max_score": 10,
+      "description": "Distinguishes permanent errors (e.g. invalid address/recipient) from transient ones — does NOT retry when the error is permanent"
+    },
+    {
+      "name": "DispatchError caught",
+      "max_score": 10,
+      "description": "Catches `DispatchError` from pidge explicitly in the retry loop"
+    },
+    {
+      "name": "Logs failure after retries",
+      "max_score": 8,
+      "description": "After all retry attempts are exhausted, logs an error message (e.g. `logger.error`) indicating dispatch failed"
+    },
+    {
+      "name": "Async context manager lifecycle",
+      "max_score": 10,
+      "description": "Uses `async with NotificationClient(...) as client:` — does not hold the client open across multiple unrelated dispatch operations"
+    },
+    {
+      "name": "Result check after success",
+      "max_score": 10,
+      "description": "After a successful dispatch (no exception), checks `result.success` or `result.status == Status.SENT` before treating it as confirmed"
+    },
+    {
+      "name": "Logs message_id on success",
+      "max_score": 8,
+      "description": "Logs `result.message_id` after a successful dispatch"
+    },
+    {
+      "name": "notification_sent in response",
+      "max_score": 12,
+      "description": "Returns `notification_sent: True` or `notification_sent: False` in the function/endpoint result"
+    }
+  ]
+}
